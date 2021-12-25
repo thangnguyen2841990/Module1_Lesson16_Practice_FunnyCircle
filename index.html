@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Funny Circle</title>
+    <script src="funnyCircle.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1368" height="768" style="border: solid 1px green"></canvas>
+<script>
+    function getRandomHex() {
+        return Math.floor(Math.random() * 255);
+    }
+
+    function getRandomColor() {
+        let red = getRandomHex();
+        let blue = getRandomHex();
+        let green = getRandomHex();
+        return "rgb(" + red + ',' + blue + ',' + green + ")"
+    }
+
+    function clear() {
+        ctx.clearRect(0, 0, 1368, 768)
+    }
+
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext('2d');
+
+    function drawFunnyCircle() {
+        let x = Math.floor(Math.random() * window.innerWidth);
+        let y = Math.floor(Math.random() * window.innerHeight);
+        let radius = Math.floor(Math.random() * 80);
+        let color = getRandomColor();
+        let circle = new FunnyCircle(x, y, radius, color);
+        ctx.beginPath();
+        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = circle.color;
+        ctx.fill();
+    }
+
+    function drawMultiCircle() {
+        clear();
+        for (i = 0; i < 30; i++) {
+
+            drawFunnyCircle();
+
+        }
+    }
+    let circle1 = new FunnyCircle(100,200,50,'blue');
+    function drawMoveCircle() {
+        circle1.y += 20;
+        clear()
+        ctx.beginPath();
+        ctx.arc(circle1.x, circle1.y, circle1.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = circle1.color;
+        ctx.fill();
+    }
+    setInterval(drawMoveCircle,50);
+
+
+</script>
+</body>
+</html>
